@@ -1,0 +1,427 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>GET PAID Invoice Recovery</title>
+<meta name="description" content="A 14-day, step-by-step system for freelancers and small businesses to recover overdue invoices. Ready-to-send emails, scripts, SMS versions and an Excel tracker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a statement sheet — hero invoice that gets stamped PAID, then the 14-day ledger, scripts and tracker as working documents. */
+:root{
+  --paper:#F2F4F6;
+  --sheet:#FFFFFF;
+  --ink:#14213D;
+  --ink-2:#4A5672;
+  --rule:#D5DAE3;
+  --paid:#167048;
+  --paid-ink:#FFFFFF;
+  --overdue:#B9302A;
+  --tint:#E4EEE8;
+  --amber:#9A6A00;
+  --f-display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --shadow:0 1px 2px rgba(20,33,61,.06), 0 12px 32px -12px rgba(20,33,61,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1424; --sheet:#172036; --ink:#E7EBF3; --ink-2:#A3ADC4; --rule:#2A3550;
+    --paid:#3FBF83; --paid-ink:#06150E; --overdue:#F0756A; --tint:#173328; --amber:#E2B54A;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1424; --sheet:#172036; --ink:#E7EBF3; --ink-2:#A3ADC4; --rule:#2A3550;
+  --paid:#3FBF83; --paid-ink:#06150E; --overdue:#F0756A; --tint:#173328; --amber:#E2B54A;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,4.2vw,3rem);font-weight:800}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.lede{color:var(--ink-2);font-size:1.12rem;max-width:58ch}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--paid);outline-offset:3px;border-radius:4px}
+
+/* Top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:20px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.15rem;letter-spacing:.02em;text-decoration:none}
+.brand span{color:var(--paid)}
+.top .mini{font-family:var(--f-mono);font-size:.85rem;text-decoration:none;border:1.5px solid var(--ink);padding:8px 14px;border-radius:999px;white-space:nowrap}
+.top .mini:hover{background:var(--ink);color:var(--paper)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--paid);color:var(--paid-ink);font-weight:700;font-size:1.08rem;text-decoration:none;padding:16px 26px;border-radius:10px;box-shadow:0 2px 0 rgba(0,0,0,.18);transition:transform .15s ease, filter .15s ease}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn .price{font-family:var(--f-mono);font-weight:600;padding-left:12px;border-left:1px solid currentColor;opacity:.95}
+.fine{font-size:.9rem;color:var(--ink-2)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:40px 80px}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5rem);font-weight:800;margin-block:14px 22px}
+.hero h1 em{font-style:normal;color:var(--paid)}
+.hero .cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:30px}
+.ticks{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:20px 0 0;font-size:.92rem;color:var(--ink-2)}
+.ticks li::before{content:"✓ ";color:var(--paid);font-weight:700}
+
+/* Invoice mock */
+.invoice{position:relative;background:var(--sheet);border-radius:6px;box-shadow:var(--shadow);padding:28px 28px 24px;font-family:var(--f-mono);font-size:.84rem;color:var(--ink);transform:rotate(1.2deg)}
+.invoice .row{display:flex;justify-content:space-between;gap:12px;padding-block:7px;border-bottom:1px dashed var(--rule)}
+.invoice .row:last-of-type{border-bottom:0}
+.invoice .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.invoice .head b{font-family:var(--f-display);font-size:1.6rem;letter-spacing:.06em}
+.invoice .muted{color:var(--ink-2)}
+.invoice .total{margin-top:12px;padding-top:12px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;font-weight:600;font-size:1rem}
+.log{margin-top:18px;padding-top:14px;border-top:1px solid var(--rule);display:grid;gap:6px;font-size:.78rem;color:var(--ink-2)}
+.log span b{color:var(--ink);font-weight:500}
+.stamp{position:absolute;font-family:var(--f-display);font-weight:800;letter-spacing:.08em;border:4px solid currentColor;border-radius:8px;padding:6px 16px;text-transform:uppercase;line-height:1;pointer-events:none}
+.stamp.overdue{color:var(--overdue);top:96px;right:22px;font-size:1.25rem;transform:rotate(-8deg);opacity:.85;animation:fade 0.5s ease 1.6s forwards}
+.stamp.paid{color:var(--paid);top:150px;left:50%;font-size:3.2rem;transform:translateX(-50%) rotate(-12deg);animation:slam .45s cubic-bezier(.2,1.4,.4,1) 1.4s both}
+@keyframes slam{from{opacity:0;transform:translateX(-50%) rotate(-12deg) scale(1.9)}to{opacity:.92;transform:translateX(-50%) rotate(-12deg) scale(1)}}
+@keyframes fade{to{opacity:.25}}
+@media (prefers-reduced-motion: reduce){
+  .stamp.paid,.stamp.overdue{animation:none}
+  .stamp.paid{opacity:.92}
+  .stamp.overdue{opacity:.25}
+  .btn{transition:none}
+}
+
+/* Sections */
+section{padding-block:80px}
+.band{background:var(--sheet);border-block:1px solid var(--rule)}
+.sec-head{display:grid;gap:14px;margin-bottom:44px;max-width:760px}
+
+/* Problem */
+.problem{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.problem > *{min-width:0}
+.problem .big{font-family:var(--f-display);font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700;line-height:1.15}
+.problem .big s{color:var(--ink-2);text-decoration-thickness:2px}
+.problem p+p{margin-top:16px}
+
+/* Timeline */
+.track{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-bottom:28px}
+.track div{height:10px;border-radius:2px;background:var(--rule)}
+.track div.on{background:var(--ink)}
+.track div.end{background:var(--overdue)}
+.track-labels{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;font-family:var(--f-mono);font-size:.72rem;color:var(--ink-2);margin-top:-20px;margin-bottom:30px}
+.track-labels span{text-align:center}
+.track-labels span.on{color:var(--ink);font-weight:600}
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.steps li{background:var(--sheet);padding:22px;display:grid;gap:6px;align-content:start}
+.steps .day{font-family:var(--f-mono);font-size:.8rem;color:var(--paid);font-weight:600;letter-spacing:.06em}
+.steps li:last-child .day{color:var(--overdue)}
+.steps p{color:var(--ink-2);font-size:.95rem}
+
+/* Sample email */
+.sample{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.sample > *{min-width:0}
+.mail{background:var(--sheet);border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.mail-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
+.mail-subj{padding:16px 22px 0;font-weight:700}
+.mail-body{padding:14px 22px 24px;white-space:pre-line;font-size:1rem}
+.mail-body mark{background:var(--tint);color:var(--ink);padding:0 3px;border-radius:3px;font-family:var(--f-mono);font-size:.9em}
+.copy{font:inherit;font-family:var(--f-mono);font-size:.8rem;background:transparent;color:var(--ink);border:1.5px solid var(--rule);border-radius:6px;padding:6px 12px;cursor:pointer}
+.copy:hover{border-color:var(--ink)}
+.side-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}
+.side-list li{display:flex;gap:10px;color:var(--ink-2)}
+.side-list b{color:var(--ink)}
+
+/* Replies */
+.replies{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.reply{background:var(--paper);border-radius:10px;padding:22px 24px;display:grid;gap:12px;align-content:start}
+.reply q{font-family:var(--f-display);font-size:1.3rem;font-weight:700;quotes:"“" "”"}
+.reply p{color:var(--ink-2);font-size:.97rem;border-left:3px solid var(--paid);padding-left:14px}
+
+/* Inside */
+.inside{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;list-style:none;padding:0;margin:0}
+.inside li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding-block:18px;border-top:1px solid var(--rule)}
+.inside .n{font-family:var(--f-mono);font-size:.85rem;color:var(--paid);font-weight:600;padding-top:3px;min-width:3ch}
+.inside b{display:block}
+.inside span.d{grid-column:2;color:var(--ink-2);font-size:.95rem}
+
+/* Tracker */
+.table-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-family:var(--f-mono);font-weight:500;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:var(--paper)}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-size:.76rem;font-weight:600;padding:3px 10px;border-radius:999px;border:1.5px solid currentColor}
+.chip.paid{color:var(--paid)}
+.chip.promised{color:var(--amber)}
+.chip.overdue{color:var(--overdue)}
+.caption{margin-top:12px;font-size:.88rem;color:var(--ink-2)}
+
+/* Who */
+.who{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}
+.who li{font-weight:600;padding:10px 18px;border:1.5px solid var(--ink);border-radius:999px}
+
+/* Buy */
+.buy{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.buy > *{min-width:0}
+.price-card{background:var(--sheet);border:2px solid var(--ink);border-radius:12px;padding:30px;display:grid;gap:18px}
+.price-card .amt{font-family:var(--f-display);font-weight:800;font-size:4rem;line-height:1}
+.price-card .amt small{font-family:var(--f-mono);font-size:1rem;font-weight:500;color:var(--ink-2);margin-left:6px}
+.price-card ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:.95rem}
+.price-card li::before{content:"✓ ";color:var(--paid);font-weight:700}
+.price-card .btn{justify-content:center}
+
+/* FAQ */
+.faq{display:grid;gap:0;max-width:800px}
+details{border-top:1px solid var(--rule);padding-block:18px}
+details:last-child{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-weight:700;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--ink-2)}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--ink-2);max-width:65ch}
+
+footer{padding-block:40px 56px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--ink-2);display:grid;gap:10px}
+
+@media (max-width:860px){
+  .hero,.problem,.sample,.buy{grid-template-columns:1fr;gap:36px}
+  .hero{padding-block:16px 56px}
+  .invoice{transform:none}
+  .steps{grid-template-columns:1fr 1fr}
+  .replies,.inside{grid-template-columns:1fr}
+  section{padding-block:60px}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .steps{grid-template-columns:1fr}
+  .track-labels{font-size:.6rem}
+  .stamp.paid{font-size:2.4rem}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top">GET <span>PAID</span></a>
+    <a class="mini" href="https://payhip.com/b/IvWtV" target="_blank" rel="noopener">Buy · $19</a>
+  </header>
+
+  <div class="hero" id="top">
+    <div>
+      <p class="eyebrow">The 14-Day Invoice Recovery System</p>
+      <h1>Stop chasing unpaid invoices. <em>Start getting paid.</em></h1>
+      <p class="lede">A client hasn’t paid. You sent a reminder. Nothing. This is the step-by-step playbook for what to send next, day by day, without awkward calls or endless follow-ups.</p>
+      <div class="cta">
+        <a class="btn" href="https://payhip.com/b/IvWtV" target="_blank" rel="noopener">Get the system <span class="price">$19</span></a>
+        <span class="fine">Instant download · PDF guide + Excel tracker</span>
+      </div>
+      <ul class="ticks">
+        <li>Copy-and-send emails</li>
+        <li>SMS &amp; WhatsApp versions</li>
+        <li>Works for US &amp; UK clients</li>
+      </ul>
+    </div>
+
+    <div class="invoice" aria-label="Example invoice moving from overdue to paid">
+      <div class="head"><b>INVOICE</b><span class="muted">#INV-0142</span></div>
+      <div class="row"><span class="muted">Billed to</span><span>Northwind Studio Ltd</span></div>
+      <div class="row"><span class="muted">Issued</span><span>Sep 01</span></div>
+      <div class="row"><span class="muted">Due</span><span>Sep 30 · Net 30</span></div>
+      <div class="row"><span class="muted">Brand identity, phase 2</span><span>$2,400.00</span></div>
+      <div class="total"><span>Balance due</span><span>$2,400.00</span></div>
+      <div class="log">
+        <span>Day 1 · <b>Friendly reminder</b> sent</span>
+        <span>Day 7 · <b>Firm reminder</b> sent</span>
+        <span>Day 9 · <b>Payment confirmed</b> for Oct 10</span>
+      </div>
+      <span class="stamp overdue">Overdue</span>
+      <span class="stamp paid">Paid</span>
+    </div>
+  </div>
+</div>
+
+<section class="band">
+  <div class="wrap problem">
+    <p class="big">The hard part isn’t sending a reminder. It’s knowing what to send next, and when.</p>
+    <div>
+      <p>Most overdue invoices don’t need a lawyer. They need a clear, calm sequence that removes every excuse: the invoice wasn’t received, it’s stuck in approval, nobody gave a date.</p>
+      <p>GET PAID gives you that sequence. Find the situation you’re in, send the matching message, log it in the tracker, and you always know your next step.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The plan</p>
+      <h2>Six messages. Fourteen days. One clear outcome.</h2>
+      <p class="lede">Each step has one job: get a confirmed payment date, get paid, or move to the right next step.</p>
+    </div>
+    <div class="track" aria-hidden="true">
+      <div class="on"></div><div></div><div class="on"></div><div></div><div class="on"></div><div></div><div class="on"></div><div></div><div></div><div class="on"></div><div></div><div></div><div></div><div class="end"></div>
+    </div>
+    <div class="track-labels" aria-hidden="true">
+      <span class="on">1</span><span>2</span><span class="on">3</span><span>4</span><span class="on">5</span><span>6</span><span class="on">7</span><span>8</span><span>9</span><span class="on">10</span><span>11</span><span>12</span><span>13</span><span class="on">14</span>
+    </div>
+    <ol class="steps">
+      <li><span class="day">DAY 1</span><h3>Friendly reminder</h3><p>Confirm the invoice was received and ask when payment is scheduled.</p></li>
+      <li><span class="day">DAY 3</span><h3>Follow-up</h3><p>Get a response, or surface the issue that’s holding it up.</p></li>
+      <li><span class="day">DAY 5</span><h3>Processing check</h3><p>Remove admin excuses: missing PO, wrong contact, lost invoice.</p></li>
+      <li><span class="day">DAY 7</span><h3>Firm reminder</h3><p>Make the overdue status explicit and ask for a specific date.</p></li>
+      <li><span class="day">DAY 10</span><h3>Final courtesy notice</h3><p>Set a clear deadline and ask them to raise any issue now.</p></li>
+      <li><span class="day">DAY 14</span><h3>Escalation notice</h3><p>Put everything in writing and prepare the appropriate formal next step.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap sample">
+    <div>
+      <p class="eyebrow">Free sample</p>
+      <h2 style="margin-top:12px">Here’s the Day 7 email. Use it today.</h2>
+      <ul class="side-list">
+        <li><b>Factual.</b> Invoice number, amount, days overdue.</li>
+        <li><b>Specific.</b> Asks for a date, never “ASAP”.</li>
+        <li><b>Professional.</b> Firm without burning the relationship.</li>
+      </ul>
+    </div>
+    <div class="mail">
+      <div class="mail-bar"><span>Day 7 · Firm reminder</span><button class="copy" id="copy-sample" type="button">Copy email</button></div>
+      <div class="mail-subj">Subject: Overdue invoice <mark>[#]</mark> — action required</div>
+      <div class="mail-body" id="sample-text">Hi <mark>[Name]</mark>,
+
+Invoice <mark>[#]</mark> for <mark>[amount]</mark> is now <mark>[X]</mark> days overdue.
+
+Please confirm the payment date by <mark>[date]</mark>.
+
+If there is an issue with the invoice, please let me know so we can resolve it.
+
+Regards,
+<mark>[Your name]</mark></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">When they reply</p>
+      <h2>Ready answers for every excuse.</h2>
+      <p class="lede">Clients rarely say no. They say “soon”. Each reply in the guide turns a vague promise into a date you can hold them to.</p>
+    </div>
+    <div class="replies">
+      <div class="reply"><q>I’ll pay next week.</q><p>Thanks. Please confirm the exact payment date so I can update my records.</p></div>
+      <div class="reply"><q>We’re waiting for our client to pay us.</q><p>I understand. However, invoice [#] is already overdue. Please confirm when payment will be made from your side.</p></div>
+      <div class="reply"><q>I never received the invoice.</q><p>No problem. I’ve attached invoice [#] again. Please confirm receipt and let me know the payment date.</p></div>
+      <div class="reply"><q>There’s an issue with the invoice.</q><p>Please send the specific items you believe are incorrect. Meanwhile, please arrange payment for the undisputed portion.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What’s inside</p>
+      <h2>Everything you need to recover an overdue invoice.</h2>
+    </div>
+    <ul class="inside">
+      <li><span class="n">01</span><div><b>The 14-day recovery plan</b></div><span class="d">What to send on which day, and what each message must achieve.</span></li>
+      <li><span class="n">06</span><div><b>Core reminder emails</b></div><span class="d">Day 1 to Day 14, with subject lines, ready to copy and send.</span></li>
+      <li><span class="n">09</span><div><b>Reply scripts</b></div><span class="d">For “next week”, missed promises, payment plans, disputes and clients who go silent.</span></li>
+      <li><span class="n">25</span><div><b>Quick-library messages</b></div><span class="d">One-liners for partial payments, PO issues, approvals, duplicates and more.</span></li>
+      <li><span class="n">10</span><div><b>Short text &amp; WhatsApp versions</b></div><span class="d">For clients who ignore email but read their phone.</span></li>
+      <li><span class="n">XLSX</span><div><b>Invoice Recovery Tracker</b></div><span class="d">Days overdue calculates automatically. Status dropdowns included.</span></li>
+      <li><span class="n">AI</span><div><b>AI message prompt</b></div><span class="d">Paste into ChatGPT, Claude or similar to tailor messages to your client.</span></li>
+      <li><span class="n">10</span><div><b>Prevention checklist</b></div><span class="d">Habits that stop the next invoice from going overdue.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Included tracker</p>
+      <h2>See every unpaid invoice at a glance.</h2>
+      <p class="lede">One row per invoice. Record each contact and promised date, so nothing slips and no follow-up is forgotten.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Client</th><th>Invoice #</th><th>Amount</th><th>Due date</th><th>Days overdue</th><th>Last contact</th><th>Next contact</th><th>Status</th><th>Promised date</th></tr></thead>
+        <tbody>
+          <tr><td>Northwind Studio</td><td class="num">INV-0142</td><td class="num">$2,400.00</td><td class="num">Sep 30</td><td class="num">—</td><td class="num">Oct 09</td><td class="num">—</td><td><span class="chip paid">Paid</span></td><td class="num">Oct 10</td></tr>
+          <tr><td>Harbour &amp; Co.</td><td class="num">INV-0147</td><td class="num">£850.00</td><td class="num">Oct 02</td><td class="num">5</td><td class="num">Oct 06</td><td class="num">Oct 09</td><td><span class="chip promised">Payment Promised</span></td><td class="num">Oct 14</td></tr>
+          <tr><td>Bright Lane Media</td><td class="num">INV-0151</td><td class="num">$1,180.00</td><td class="num">Sep 26</td><td class="num">11</td><td class="num">Oct 03</td><td class="num">Oct 07</td><td><span class="chip overdue">Overdue</span></td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">Example rows. The tracker is an .xlsx file that opens in Excel, Google Sheets and Numbers.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Built for</p>
+      <h2>Anyone who sends invoices and waits to be paid.</h2>
+    </div>
+    <ul class="who">
+      <li>Freelancers</li><li>Consultants</li><li>Designers</li><li>Developers</li><li>Agencies</li><li>Coaches</li><li>Contractors</li><li>Small businesses</li>
+    </ul>
+  </div>
+</section>
+
+<section id="buy">
+  <div class="wrap buy">
+    <div>
+      <h2>Stop wondering “what do I send them now?”</h2>
+      <p class="lede" style="margin-top:18px">Follow the system and always know your next step. Get the system. Send the right message. Get paid.</p>
+    </div>
+    <div class="price-card">
+      <p class="eyebrow">GET PAID · Complete system</p>
+      <div class="amt">$19<small>USD · one-time</small></div>
+      <ul>
+        <li>PDF guide with all scripts and messages</li>
+        <li>Excel Invoice Recovery Tracker</li>
+        <li>Instant download after checkout</li>
+      </ul>
+      <a class="btn" href="https://payhip.com/b/IvWtV" target="_blank" rel="noopener">Get the system <span class="price">$19</span></a>
+      <p class="fine">Secure checkout via Payhip.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Questions</p><h2>FAQ</h2></div>
+    <div class="faq">
+      <details><summary>How do I get the files?</summary><p>Right after checkout, Payhip shows a download link and emails it to you. You get the PDF guide and the Excel tracker.</p></details>
+      <details><summary>Does it work for clients in the US and the UK?</summary><p>Yes. The messages are written in plain, professional English and don’t rely on any one country’s rules. The guide reminds you to check what’s allowed in your jurisdiction before escalating.</p></details>
+      <details><summary>Do I need Excel?</summary><p>No. The tracker is a standard .xlsx file. It opens in Microsoft Excel, Google Sheets and Apple Numbers.</p></details>
+      <details><summary>Will these messages damage my client relationships?</summary><p>They’re designed not to. Every message is factual, polite and specific. Firm does not mean hostile, and the sequence gives clients easy ways to resolve the issue before anything escalates.</p></details>
+      <details><summary>Is this legal advice?</summary><p>No. GET PAID is general business communication guidance. Payment rights, late-payment charges and collection procedures vary by jurisdiction, so consult a qualified professional before taking legal action.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <p><b>GET PAID</b> — The 14-Day Invoice Recovery System · by Get Paid Systems</p>
+    <p>General business guidance only. This product is not legal advice. Payment rights, late-payment charges, collection procedures and escalation options vary by jurisdiction. Consult a qualified professional before taking legal action or making legal claims.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy-sample');
+  var src=document.getElementById('sample-text');
+  btn.addEventListener('click',function(){
+    var text='Subject: Overdue invoice [#] — action required\n\n'+src.innerText.trim();
+    function done(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy email';},1800);}
+    function fallback(){var r=document.createRange();r.selectNodeContents(src);var s=window.getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected — press Ctrl/⌘+C';}
+    try{navigator.clipboard.writeText(text).then(done,fallback);}catch(e){fallback();}
+  });
+})();
+</script>
+
+</body></html>
